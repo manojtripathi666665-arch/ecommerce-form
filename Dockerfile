@@ -9,4 +9,4 @@ COPY . /app
 EXPOSE 10000
 
 # Start PHP built-in web server on port 10000
-CMD ["php", "-S", "0.0.0.0:10000"]
+CMD ["php", "-S", "0.0.0.0:10000", "router.php"]
