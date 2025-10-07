@@ -1,71 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>E-Commerce Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background-color: #f4f4f4;
-    }
-    h2 {
-      color: #333;
-    }
-    form {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 400px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-    }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 15px;
-      background-color: #28a745;
-      border: none;
-      color: white;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    button:hover {
-      background-color: #218838;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>E-Commerce Form + Shop</title>
+<style>
+  /* General Styles */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    min-height: 100vh;
+  }
+
+  /* Container */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  /* Form Styles */
+  #interest-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  #interest-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  button, #buy-now {
+    margin-top: 25px;
+    padding: 12px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  button:hover, #buy-now:hover {
+    background-color: #218838;
+  }
+
+  /* Shopping Page Styles */
+
+  h1, h2 {
+    text-align: center;
+  }
+
+  .products, .cart {
+    margin-top: 30px;
+  }
+
+  .product, .cart-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .product img, .cart-item img {
+    max-width: 120px;
+    border-radius: 5px;
+    object-fit: cover;
+    height: 90px;
+    width: 120px;
+  }
+
+  .product-info, .cart-info {
+    flex-grow: 1;
+  }
+
+  .product button, .cart-item button {
+    background: #007bff;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: 10px;
+  }
+
+  .product button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+  }
+
+  .cart-summary {
+    font-weight: bold;
+    text-align: right;
+    margin-top: 10px;
+  }
+
+  .quantity-controls button {
+    margin: 0 5px;
+    background: #28a745;
+  }
+
+  .quantity-controls button:hover {
+    background: #218838;
+  }
+</style>
 </head>
 <body>
-  <h2>Product Interest Form</h2>
-  <form action="submit.php" method="POST">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
+<div class="container">
+  <!-- FORM SECTION -->
+  <section id="form-section">
+    <form id="interest-form">
+      <h2>User Login / Interest Form</h2>
 
-    <label for="email">Email ID:</label>
-    <input type="email" id="email" name="email" required>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required />
 
-    <label for="category">Product Category:</label>
-    <select id="category" name="category" required>
-      <option value="Children">Children</option>
-      <option value="Electronics">Electronics</option>
-      <option value="Toys">Toys</option>
-      <option value="Books">Books</option>
-      <option value="Fashion">Fashion</option>
-    </select>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter a secure password" required />
 
-    <button type="submit">Submit</button>
-  </form>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+      <label for="category">Interested Product Category</label>
+      <select id="category" name="category" required>
+        <option value="">-- Select Category --</option>
+        <option value="Children">Children</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Toys">Toys</option>
+        <option value="Books">Books</option>
+        <option value="Fashion">Fashion</option>
+      </select>
+
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+
+  <!-- SHOPPING SECTION (hidden initially) -->
+  <section id="shop-section" style="display:none;">
+    <h1>Simple E-Shop with Images</h1>
+
+    <section class="products">
+      <h2>Products</h2>
+      <div id="product-list"></div>
+    </section>
+
+    <section class="cart">
+      <h2>Cart</h2>
+      <div id="cart-list">Your cart is empty.</div>
+      <div class="cart-summary">
+        <div id="cart-total"></div>
+        <button id="buy-now">Buy Now</button>
+      </div>
+    </section>
+  </section>
+</div>
+
+<script>
+  // Products data with better images
+  const products = [
+    {
+      id: 1,
+      name: "Wireless Headphones",
+      price: 59.99,
+      stock: 5,
+      img: "https://images.unsplash.com/photo-1616594039964-d29c4e1e4b2d?auto=format&fit=crop&w=120&q=80"
+    },
+    {
+      id: 2,
+      name: "Future Phone",
+      price: 120.00,
+      stock: 3,
+      img: "https://images.unsplash.com/photo-1580910051070-c900c8e3b786?auto=format&fit=crop&w=120&q=80"
+    },
+    {
+      id: 3,
+      name: "Gaming Mouse",
+      price: 35.50,
+      stock: 10,
+      img: "https://images.unsplash.com/photo-1616627989395-799f4d1b1fa6?auto=format&fit=crop&w=120&q=80"
+    },
+    {
+      id: 4,
+      name: "Mechanical Keyboard",
+      price: 75.00,
+      stock: 2,
+      img: "https://images.unsplash.com/photo-1617196038434-06e112f7da32?auto=format&fit=crop&w=120&q=80"
+    }
+  ];
+
+  let cart = {};
+
+  // Form submission handler
+  document.getElementById('interest-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Simple validation (already required in inputs, but double-check)
+    const username = this.username.value.trim();
+    const password = this.password.value.trim();
+    const email = this.email.value.trim();
+    const category = this.category.value;
+
+    if (!username || !password || !email || !category) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    // You can add actual form submission here (AJAX/fetch to your PHP API)
+    // For now, simulate success and show the shopping page
+
+    alert(`Welcome, ${username}! Showing the shop now.`);
+
+    // Hide form, show shop
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('shop-section').style.display = 'block';
+
+    renderProducts();
+    renderCart();
+  });
+
+  // Render products in shop
+  const productList = document.getElementById('product-list');
+  const cartList = document.getElementById('cart-list');
+  const cartTotal = document.getElementById('cart-total');
+
+  function renderProducts() {
+    productList.innerHTML = "";
+    products.forEach(product => {
+      const productDiv = document.createElement('div');
+      productDiv.className = 'product';
+
+      productDiv.innerHTML = `
+        <img src="${product.img}" alt="${product.name}">
+        <div class="product-info">
+          <strong>${product.name}</strong><br>
+          Price: $${product.price.toFixed(2)}<br>
+          Stock: ${product.stock}<br>
+          <button ${product.stock === 0 ? "disabled" : ""} data-id="${product.id}">Add to Cart</button>
+        </div>
+      `;
+      productList.appendChild(productDiv);
+    });
+
+    productList.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', () => {
+        const id = parseInt(button.getAttribute('data-id'));
+        addToCart(id);
+      });
+    });
+  }
+
+  function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product || product.stock === 0) return;
+
+    if (!cart[productId]) {
+      cart[productId] = 1;
+    } else if (cart[productId] < product.stock) {
+      cart[productId]++;
+    } else {
+      alert("No more stock available.");
+      return;
+    }
+    renderCart();
+    renderProducts();
+  }
+
+  function removeFromCart(productId) {
+    delete cart[productId];
+    renderCart();
+    renderProducts();
+  }
+
+  function changeQuantity(productId, delta) {
+    if (!cart[productId]) return;
+
+    const product = products.find(p => p.id === productId);
+    const newQty = cart[productId] + delta;
+
+    if (newQty > product.stock) {
+      alert("Not enough stock.");
+      return;
+    }
+    if (newQty <= 0) {
+      removeFromCart(productId);
+      return;
+    }
+    cart[productId] = newQty;
+    renderCart();
+    renderProducts();
+  }
+
+  function renderCart() {
+    cartList.innerHTML = "";
+    let total = 0;
+    const cartIds = Object.keys(cart);
+
+    if (cartIds.length === 0) {
+      cartList.textContent = "Your cart is empty.";
+      cartTotal.textContent = "";
+      return;
+    }
+
+    cartIds.forEach(idStr => {
+      const id = parseInt(idStr);
+      const product = products.find(p => p.id === id);
+      const qty = cart[id];
+      const subtotal = product.price * qty;
+      total += subtotal;
+
+      const cartItem = document.createElement('div');
+      cartItem.className = 'cart-item';
+
+      cartItem.innerHTML = `
+        <img src="${product.img}" alt="${product.name}">
+        <div class="cart-info">
+          <strong>${product.name}</strong><br>
+          Price: $${product.price.toFixed(2)}<br>
+          Quantity: 
+          <span class="quantity-controls">
+            <button data-id="${id}" class="decrease">-</button>
+            ${qty}
+            <button data-id="${id}" class="increase">+</button>
+          </span><br>
+          Subtotal: $${subtotal.toFixed(2)}
+          <br>
+          <button data-id="${id}" class="remove">Remove</button>
+        </div>
+      `;
+
+      cartList.appendChild(cartItem);
+    });
+
+    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+  }
+
+  // Cart buttons handlers
+  cartList.addEventListener('click', (e) => {
+    if (e.target.matches('button.decrease')) {
+      const id = parseInt(e.target.getAttribute('data-id'));
+      changeQuantity(id, -1);
+    }
+    if (e.target.matches('button.increase')) {
+      const id = parseInt(e.target.getAttribute('data-id'));
+      changeQuantity(id, 1);
+    }
+    if (e.target.matches('button.remove')) {
+      const id = parseInt(e.target.getAttribute('data-id'));
+      removeFromCart(id);
+    }
+  });
+
+  // Buy Now button handler
+  document.getElementById('buy-now').addEventListener('click', () => {
+    if (Object.keys(cart).length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
+    alert("Thank you for your purchase! (Simulated)");
+    cart = {};
+    renderCart();
+    renderProducts();
+  });
+</script>
+
 </body>
 </html>
