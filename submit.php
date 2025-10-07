@@ -38,4 +38,4 @@ if ($result) {
 }
 
 pg_close($conn);
-?>
+?
