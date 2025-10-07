@@ -1,12 +1,15 @@
-# Use official PHP built-in webserver image
-FROM php:8.2-cli
+# Use official PHP + Apache image
+FROM php:8.2-apache
 
-# Copy app files to /app directory
-WORKDIR /app
-COPY . /app
+# Install PostgreSQL extension
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pgsql pdo_pgsql
 
-# Expose port 10000
-EXPOSE 10000
+# Set working directory
+WORKDIR /var/www/html
 
-# Start PHP built-in web server on port 10000
-CMD ["php", "-S", "0.0.0.0:10000", "router.php"]
+# Copy all project files to the container's web root
+COPY . .
+
+# Expose port 80 (standard for web)
+EXPOSE 80
