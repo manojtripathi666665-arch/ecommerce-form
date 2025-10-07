@@ -1,4 +1,4 @@
-php
+<?php
 // Render PostgreSQL DB credentials
 $host = "dpg-d3hkhchr0fns73cf897g-a.oregon-postgres.render.com";
 $port = "5432";
@@ -39,6 +39,7 @@ if ($result) {
 
 pg_close($conn);
 ?>
+
 
 
 
