@@ -1,33 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Login Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Registration</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
-    form { max-width: 400px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    label { display: block; margin-top: 15px; font-weight: bold; }
-    input { width: 100%; padding: 10px; margin-top: 5px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc; }
-    button { margin-top: 20px; width: 100%; padding: 12px; background-color: #28a745; border: none; color: white; font-size: 16px; cursor: pointer; border-radius: 4px; }
-    button:hover { background-color: #218838; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 420px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #3343a1;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    input, select {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #5563DE;
+      box-shadow: 0 0 5px rgba(85,99,222,0.4);
+    }
+
+    button {
+      background: #5563DE;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #3343a1;
+    }
+
+    .view-link {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #3343a1;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .view-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>🛒 E-Commerce Registration</h1>
+    <form action="submit.php" method="POST">
+      <input type="text" name="username" placeholder="Enter Username" required>
+      <input type="password" name="password" placeholder="Enter Password" required>
+      <input type="email" name="email" placeholder="Enter Email" required>
+      <select name="category" required>
+        <option value="">Select Category</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Fashion">Fashion</option>
+        <option value="Groceries">Groceries</option>
+        <option value="Home Decor">Home Decor</option>
+        <option value="Other">Other</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
 
-<form method="POST" action="/submit.php">
-  <h2>User Login</h2>
-
-  <label for="username">Username</label>
-  <input type="text" id="username" name="username" required />
-
-  <label for="password">Password</label>
-  <input type="password" id="password" name="password" required />
-
-  <label for="email">Email</label>
-  <input type="email" id="email" name="email" required />
-
-  <button type="submit">Login</button>
-</form>
-
+  </div>
 </body>
 </html>
