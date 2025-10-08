@@ -1,5 +1,5 @@
 <?php
-// PostgreSQL credentials (replace with your actual Render credentials)
+// PostgreSQL credentials
 $host = "dpg-d3hkhchr0fns73cf897g-a.oregon-postgres.render.com";
 $port = "5432";
 $db = "ecommerce_db_35u4";
@@ -11,8 +11,7 @@ $conn_string = "host=$host port=$port dbname=$db user=$user password=$password";
 $conn = pg_connect($conn_string);
 
 if (!$conn) {
-    echo "Error: Could not connect to the database.";
-    exit;
+    die("❌ Error: Could not connect to the database.\n");
 }
 
 // Get POST data safely
@@ -21,8 +20,7 @@ $password_form = trim($_POST['password'] ?? '');
 $email = trim($_POST['email'] ?? '');
 
 if (!$username || !$password_form || !$email) {
-    echo "Please fill in all fields.";
-    exit;
+    die("❌ Please fill in all fields.\n");
 }
 
 // Hash the password before storing
@@ -33,16 +31,21 @@ $query = "INSERT INTO ecommerce_users (username, password, email) VALUES ($1, $2
 $result = pg_query_params($conn, $query, array($username, $hashed_password, $email));
 
 if ($result) {
-    echo "<h2>Thank you, " . htmlspecialchars($username) . "! Your registration was successful.</h2>";
+    echo "✅ Insert successful!\n";
+    echo "Inserted values:\n";
+    echo "Username: $username\n";
+    echo "Email: $email\n";
+    echo "Password (hashed): $hashed_password\n";
 } else {
     // Detect duplicate username or email error (Postgres unique violation error code = 23505)
     $error = pg_last_error($conn);
     if (strpos($error, '23505') !== false) {
-        echo "Error: Username or Email already exists.";
+        echo "❌ Error: Username or Email already exists.\n";
     } else {
-        echo "Error submitting data: " . htmlspecialchars($error);
+        echo "❌ Insert failed: " . $error . "\n";
     }
 }
 
+// Close connection
 pg_close($conn);
 ?>
