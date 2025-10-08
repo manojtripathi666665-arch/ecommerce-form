@@ -15,21 +15,23 @@ if (!$conn) {
     exit;
 }
 
-// Collect form data
-$username = $_POST['username'] ?? '';
-$password_form = $_POST['password'] ?? '';
-$email = $_POST['email'] ?? '';
-$category = $_POST['category'] ?? '';
+// Collect form data safely
+$username = trim($_POST['username'] ?? '');
+$password_form = trim($_POST['password'] ?? '');
+$email = trim($_POST['email'] ?? '');
 
 // Simple validation
-if (!$username || !$password_form || !$email || !$category) {
+if (!$username || !$password_form || !$email) {
     echo "Please fill in all fields.";
     exit;
 }
 
-// Insert query
-$query = "INSERT INTO ecommerce_users (username, password, email, category) VALUES ($1, $2, $3, $4)";
-$result = pg_query_params($conn, $query, array($username, $password_form, $email, $category));
+// Hash the password before storing it (recommended)
+$hashed_password = password_hash($password_form, PASSWORD_DEFAULT);
+
+// Insert query (use prepared statements to avoid SQL injection)
+$query = "INSERT INTO ecommerce_users (username, password, email) VALUES ($1, $2, $3)";
+$result = pg_query_params($conn, $query, array($username, $hashed_password, $email));
 
 if ($result) {
     echo "<h2>Thank you! Your data has been submitted.</h2>";
@@ -38,4 +40,4 @@ if ($result) {
 }
 
 pg_close($conn);
-?
+?>
