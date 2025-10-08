@@ -1,110 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Commerce Registration</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #74ABE2, #5563DE);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: #333;
-    }
-
-    .container {
-      background: white;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 420px;
-      animation: fadeIn 0.6s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h1 {
-      text-align: center;
-      color: #3343a1;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    input, select {
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      outline: none;
-      transition: all 0.3s;
-    }
-
-    input:focus, select:focus {
-      border-color: #5563DE;
-      box-shadow: 0 0 5px rgba(85,99,222,0.4);
-    }
-
-    button {
-      background: #5563DE;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    button:hover {
-      background: #3343a1;
-    }
-
-    .view-link {
-      display: block;
-      text-align: center;
-      margin-top: 15px;
-      color: #3343a1;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .view-link:hover {
-      text-decoration: underline;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Commerce Form + Shop</title>
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    min-height: 100vh;
+}
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+#interest-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+#interest-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+button {
+    margin-top: 25px;
+    padding: 12px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+button:hover {
+    background-color: #218838;
+}
+/* Shopping Section */
+.products, .cart {
+    margin-top: 30px;
+}
+.product, .cart-item {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.product img, .cart-item img {
+    max-width: 120px;
+    border-radius: 5px;
+    object-fit: cover;
+    height: 90px;
+    width: 120px;
+}
+.product-info, .cart-info {
+    flex-grow: 1;
+}
+.product button, .cart-item button {
+    background: #007bff;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+.product button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+.cart-summary {
+    font-weight: bold;
+    text-align: right;
+    margin-top: 10px;
+}
+.quantity-controls button {
+    margin: 0 5px;
+    background: #28a745;
+}
+.quantity-controls button:hover {
+    background: #218838;
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>🛒 E-Commerce Registration</h1>
-    <form action="submit.php" method="POST">
-      <input type="text" name="username" placeholder="Enter Username" required>
-      <input type="password" name="password" placeholder="Enter Password" required>
-      <input type="email" name="email" placeholder="Enter Email" required>
-      <select name="category" required>
-        <option value="">Select Category</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Fashion">Fashion</option>
-        <option value="Groceries">Groceries</option>
-        <option value="Home Decor">Home Decor</option>
-        <option value="Other">Other</option>
-      </select>
+<div class="container">
+
+  <!-- FORM SECTION -->
+  <section id="form-section">
+    <form id="interest-form" method="POST" action="submit.php">
+      <h2>User Registration</h2>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter a secure password" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
       <button type="submit">Submit</button>
     </form>
+  </section>
 
-  </div>
+  <!-- SHOPPING SECTION (hidden initially) -->
+  <section id="shop-section" style="display:none;">
+    <h1>Simple E-Shop</h1>
+
+    <section class="products">
+      <h2>Products</h2>
+      <div id="product-list"></div>
+    </section>
+
+    <section class="cart">
+      <h2>Cart</h2>
+      <div id="cart-list">Your cart is empty.</div>
+      <div class="cart-summary">
+        <div id="cart-total"></div>
+        <button id="buy-now">Buy Now</button>
+      </div>
+    </section>
+  </section>
+
+</div>
+
+<script>
+// Product Data
+const products = [
+  {id:1, name:"Wireless Headphones", price:59.99, stock:5, img:"https://images.unsplash.com/photo-1616594039964-d29c4e1e4b2d?auto=format&fit=crop&w=120&q=80"},
+  {id:2, name:"Future Phone", price:120.00, stock:3, img:"https://images.unsplash.com/photo-1580910051070-c900c8e3b786?auto=format&fit=crop&w=120&q=80"},
+  {id:3, name:"Gaming Mouse", price:35.50, stock:10, img:"https://images.unsplash.com/photo-1616627989395-799f4d1b1fa6?auto=format&fit=crop&w=120&q=80"},
+  {id:4, name:"Mechanical Keyboard", price:75.00, stock:2, img:"https://images.unsplash.com/photo-1617196038434-06e112f7da32?auto=format&fit=crop&w=120&q=80"},
+  {id:5, name:"Smartwatch", price:150.00, stock:4, img:"https://images.unsplash.com/photo-1603791440384-56cd371ee9d0?auto=format&fit=crop&w=120&q=80"}
+];
+
+let cart = {};
+
+// Form submission
+document.getElementById('interest-form').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  const response = await fetch('submit.php', {method:'POST', body:formData});
+  const text = await response.text();
+  alert(text); // show submission message
+
+  // Show shop section after submission
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('shop-section').style.display = 'block';
+  renderProducts();
+  renderCart();
+});
+
+// Render products
+const productList = document.getElementById('product-list');
+const cartList = document.getElementById('cart-list');
+const cartTotal = document.getElementById('cart-total');
+
+function renderProducts() {
+  productList.innerHTML = "";
+  products.forEach(product=>{
+    const productDiv = document.createElement('div');
+    productDiv.className='product';
+    productDiv.innerHTML=`<img src="${product.img}" alt="${product.name}">
+    <div class="product-info">
+      <strong>${product.name}</strong><br>
+      Price: $${product.price.toFixed(2)}<br>
+      Stock: ${product.stock}<br>
+      <button ${product.stock===0?"disabled":""} data-id="${product.id}">Add to Cart</button>
+    </div>`;
+    productList.appendChild(productDiv);
+  });
+  productList.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      addToCart(parseInt(btn.getAttribute('data-id')));
+    });
+  });
+}
+
+function addToCart(id){
+  const product = products.find(p=>p.id===id);
+  if(!cart[id]) cart[id]=1;
+  else if(cart[id]<product.stock) cart[id]++;
+  else { alert("No more stock."); return; }
+  renderCart();
+  renderProducts();
+}
+
+function removeFromCart(id){
+  delete cart[id];
+  renderCart();
+  renderProducts();
+}
+
+function changeQuantity(id, delta){
+  if(!cart[id]) return;
+  const product = products.find(p=>p.id===id);
+  const newQty = cart[id]+delta;
+  if(newQty>product.stock){ alert("Not enough stock."); return; }
+  if(newQty<=0){ removeFromCart(id); return; }
+  cart[id]=newQty;
+  renderCart();
+  renderProducts();
+}
+
+function renderCart(){
+  cartList.innerHTML="";
+  let total=0;
+  const ids=Object.keys(cart);
+  if(ids.length===0){ cartList.textContent="Your cart is empty."; cartTotal.textContent=""; return; }
+  ids.forEach(idStr=>{
+    const id=parseInt(idStr);
+    const product = products.find(p=>p.id===id);
+    const qty = cart[id];
+    const subtotal = product.price*qty;
+    total+=subtotal;
+    const cartItem = document.createElement('div');
+    cartItem.className='cart-item';
+    cartItem.innerHTML=`<img src="${product.img}" alt="${product.name}">
+    <div class="cart-info">
+      <strong>${product.name}</strong><br>
+      Price: $${product.price.toFixed(2)}<br>
+      Quantity: 
+      <span class="quantity-controls">
+        <button data-id="${id}" class="decrease">-</button>
+        ${qty}
+        <button data-id="${id}" class="increase">+</button>
+      </span><br>
+      Subtotal: $${subtotal.toFixed(2)}<br>
+      <button data-id="${id}" class="remove">Remove</button>
+    </div>`;
+    cartList.appendChild(cartItem);
+  });
+  cartTotal.textContent=`Total: $${total.toFixed(2)}`;
+}
+
+cartList.addEventListener('click', e=>{
+  if(e.target.matches('button.decrease')) changeQuantity(parseInt(e.target.getAttribute('data-id')),-1);
+  if(e.target.matches('button.increase')) changeQuantity(parseInt(e.target.getAttribute('data-id')),1);
+  if(e.target.matches('button.remove')) removeFromCart(parseInt(e.target.getAttribute('data-id')));
+});
+
+document.getElementById('buy-now').addEventListener('click', ()=>{
+  if(Object.keys(cart).length===0){ alert("Cart is empty!"); return; }
+  alert("Purchase simulated. Thank you!");
+  cart={};
+  renderCart();
+  renderProducts();
+});
+</script>
 </body>
 </html>
